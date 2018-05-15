@@ -36,29 +36,42 @@ void	fcone_rec(t_ray *ray, double t, t_fcone *cone, t_record *rec)
 	}
 }
 
-t_vecteur	fconepv(t_ray *ray, t_fcone *fcone, t_record *rec, double t)
+double	fconepv(t_ray *ray, t_fcone *fcone, t_record *rec, double t)
 {
 	double uv;
   t_vecteur p;
   t_vecteur temp;
   t_vecteur normal;
 	t_vecteur pv;
-	t_vecteur napex;
+	//t_vecteur napex;
 	t_vecteur oc;
+	double k;
+	k = fcone->angle / 2;
+
+
 
 	p = v_add(ray->ori, v_mult(ray->dir, t));
-	napex = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid));
-	oc = v_less(p, napex);
-	if (v_dot(v_normalize(fcone->dir), v_normalize(oc)) > 0)
-		temp = v_set(fcone->dir.x, fcone->dir.y, fcone->dir.z);
-	else
-		temp = v_set(-fcone->dir.x, -fcone->dir.y, -fcone->dir.z);
-	uv = v_norm(oc) / cos(fcone->angle / 2);
-	temp = v_normalize(v_less(oc, v_mult(temp, uv)));
-	uv = sin(M_PI/2 - fcone->angle) * (v_norm(oc) / cos(fcone->angle));
-	temp = v_set(-temp.x, -temp.y, -temp.z);
-	pv = v_add(p, v_mult(temp, uv));
-	return(pv);
+	//napex = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid));
+	oc = v_less(p, fcone->apex);
+//	if (v_dot(v_normalize(fcone->dir), v_normalize(oc)) > 0)
+//		temp = v_set(fcone->dir.x, fcone->dir.y, fcone->dir.z);
+//	else
+//		temp = v_set(-fcone->dir.x, -fcone->dir.y, -fcone->dir.z);
+	uv = v_norm(oc) * cos(k);
+	//temp = v_normalize(v_less(oc, v_mult(temp, uv)));
+//	uv = sin(M_PI/2 - k) * uv;
+	//uv = v_norm(v_less(p, napex)) * sin(k);
+	//temp = v_set(-temp.x, -temp.y, -temp.z);
+	//pv = v_less(p, v_mult(temp, uv));
+	//printf("%f\n",uv );
+/*	if (pv.x == 0)
+	{
+		printf("%f\n",uv );
+		printf("pv = %f %f %f\n", pv.x, pv.y, pv.z);
+		printf("p = %f %f %f\n", p.x, p.y, p.z);
+		printf("normal = %f %f %f\n", -temp.x, -temp.y, -temp.z);
+	}
+	*/return(uv);
 }
 
 int fcone_test(t_ray *ray, t_fcone *fcone, t_record *rec, double t)
@@ -67,16 +80,24 @@ int fcone_test(t_ray *ray, t_fcone *fcone, t_record *rec, double t)
 	t_vecteur pv;
   double ok;
 	t_vecteur napex;
+	t_vecteur p;
 
-	napex = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid));
 
-	pv = fconepv(ray, fcone, rec, t);
-	napex = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid));
-	ok = v_norm(pv, napex));
-	//printf("%f\n", ok);
-  if (ok <= fcone->size)
+	p = v_add(ray->ori, v_mult(ray->dir, t));
+	//napex = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid));
+
+	ok = fconepv(ray, fcone, rec, t);
+	//napex = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid));
+	//ok = v_norm(v_less(pv, fcone->apex));
+	//printf("napex = %f %f %f\n", napex.x, napex.y, napex.z);
+	//printf("ok = %f \n", ok);
+	//printf("pv = %f %f %f\n", pv.x, pv.y, pv.z);
+	ok = v_dot(fcone->dir, v_normalize(v_less(p, fcone->apex))) < 0 ? -ok : ok;
+	if (ok <= fcone->mid + fcone->size/2 && ok >= fcone->mid - fcone->size/2)
   {
-    //printf("%f\n", ok);
+		//printf("pv = %f %f %f\n", pv.x, pv.y, pv.z);
+		//if (ok <= fcone->size/2)
+  //  printf("%f\n", ok);
     return(1);
   }
   return(0);
@@ -84,42 +105,44 @@ int fcone_test(t_ray *ray, t_fcone *fcone, t_record *rec, double t)
 
 int	hit_fconebord(t_fcone *fcone, t_ray *ray, double *min_max, t_record *rec, int f)
 {
-	t_plan *plan1;
-	t_plan *plan2;
+	//t_plan *plan1;
+	//t_plan *plan2;
 	int t;
 	int p;
-  t_vecteur h1;
+  /*t_vecteur h1;
   t_vecteur h2;
 
   h1 = v_mult(fcone->dir, fcone->mid + fcone->size);
   h2 = v_mult(fcone->dir, fcone->mid - fcone->size);
+	//printf("h1 = %f\n", v_norm(h1));
+	//printf("h2 = %f\n", v_norm(h2));
 	plan1 = (t_plan *)ft_memalloc(sizeof(t_plan));
 	plan2 = (t_plan *)ft_memalloc(sizeof(t_plan));
 	plan1->point = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid + fcone->size));
 	plan2->point = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid - fcone->size));
 	plan1->vdir = v_set(fcone->dir.x, fcone->dir.y, fcone->dir.z);
 	plan2->vdir = v_set(-fcone->dir.x, -fcone->dir.y, -fcone->dir.z);
-	plan1->size = sqrt(fabs(v_norm(h1) - v_norm(h1) / cos(fcone->angle)));
-	plan2->size = sqrt(fabs(v_norm(h2) - v_norm(h2) / cos(fcone->angle)));
-  //printf("%f\n", plan2->size );
-  if (plan1->size != 0)
-	if(f == 1 && (t = hit_plan(plan1, ray, min_max, rec)))
-	{
-		set_min_max(min_max[0], rec->t, min_max);
-		ft_memdel((void **)&plan1);
-		ft_memdel((void **)&plan2);
-		return (t);
-	}
-  if (plan2->size != 0)
-	if(f == 2 && (p = hit_plan(plan2, ray, min_max, rec)))
-	{
-		set_min_max(min_max[0], rec->t, min_max);
-		ft_memdel((void **)&plan1);
-		ft_memdel((void **)&plan2);
-		return (p);
-	}
-	ft_memdel((void **)&plan1);
-	ft_memdel((void **)&plan2);
+	plan1->size = sqrt(fabs(pow(v_norm(h1),2) - pow(v_norm(h1) / cos(fcone->angle/2),2)));
+	plan2->size = sqrt(fabs(pow(v_norm(h2),2) - pow(v_norm(h2) / cos(fcone->angle/2),2)));
+  //printf("%f\n", plan2->size );*/
+  if (fcone->plan1->size != 0)
+		if(f == 1 && (t = hit_plan(fcone->plan1, ray, min_max, rec)))
+		{
+			set_min_max(min_max[0], rec->t, min_max);
+			//ft_memdel((void **)&plan1);
+			//ft_memdel((void **)&plan2);
+			return (t);
+		}
+  if (fcone->plan2->size != 0)
+		if(f == 2 && (p = hit_plan(fcone->plan2, ray, min_max, rec)))
+		{
+			set_min_max(min_max[0], rec->t, min_max);
+			//ft_memdel((void **)&plan1);
+			//ft_memdel((void **)&plan2);
+			return (p);
+		}
+	//ft_memdel((void **)&plan1);
+	//ft_memdel((void **)&plan2);
 	return(0);
 }
 
@@ -132,7 +155,6 @@ int	hit_fcone(t_fcone *fcone, t_ray *ray, double *min_max, t_record *rec)
   double r;
   double k;
   t_vecteur x;
-  fcone->mid =1;
 
   k = tan(fcone->angle / 2);
   k = k * k;
@@ -164,6 +186,9 @@ int	hit_fcone(t_fcone *fcone, t_ray *ray, double *min_max, t_record *rec)
 
 void	attr_fcone(t_fcone *fcone, char **tab)
 {
+	t_vecteur h1;
+	t_vecteur h2;
+
 	tab[3][ft_strlen(tab[3]) - 1] = '\0';
 	tab[7][ft_strlen(tab[7]) - 1] = '\0';
 	fcone->apex.x = ft_atof(tab[1] + 1);
@@ -175,6 +200,19 @@ void	attr_fcone(t_fcone *fcone, char **tab)
 	fcone->dir.z = ft_atof(tab[7]);
 	fcone->dir = v_normalize(fcone->dir);
   fcone->size = ft_atof(tab[8]);
+	fcone->mid = 0.3;
+  h1 = v_mult(fcone->dir, fcone->mid + fcone->size/2);
+  h2 = v_mult(fcone->dir, fcone->mid - fcone->size/2);
+	//printf("h1 = %f\n", v_norm(h1));
+	//printf("h2 = %f\n", v_norm(h2));
+	fcone->plan1 = (t_plan *)ft_memalloc(sizeof(t_plan));
+	fcone->plan2 = (t_plan *)ft_memalloc(sizeof(t_plan));
+	fcone->plan1->point = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid + fcone->size/2));
+	fcone->plan2->point = v_add(fcone->apex, v_mult(fcone->dir, fcone->mid - fcone->size/2));
+	fcone->plan1->vdir = v_set(fcone->dir.x, fcone->dir.y, fcone->dir.z);
+	fcone->plan2->vdir = v_set(-fcone->dir.x, -fcone->dir.y, -fcone->dir.z);
+	fcone->plan1->size = sqrt(fabs(pow(v_norm(h1),2) - pow(v_norm(h1) / cos(fcone->angle/2),2)));
+	fcone->plan2->size = sqrt(fabs(pow(v_norm(h2),2) - pow(v_norm(h2) / cos(fcone->angle/2),2)));
 }
 
 int		set_fcone(t_scene *scene, char **tab)

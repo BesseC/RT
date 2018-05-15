@@ -218,6 +218,10 @@ t_vecteur	r_color(t_ray *ray, t_scene scene, int depht)
 */
 			}
 		}
+		/*r[0].normal.x = fabs(r[0].normal.x);
+		r[0].normal.y = fabs(r[0].normal.y);
+		r[0].normal.z = fabs(r[0].normal.z);
+		vr = r[0].normal;*/
 		return (libe((void **)&r, (void **)&min_max, vr));
 	}
 	return (libe((void **)&r, (void **)&min_max, r_background(ray)));

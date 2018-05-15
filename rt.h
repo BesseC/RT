@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <stdio.h>
 # define W_LENGHT 1200
 # define W_WIDTH 1200
 
@@ -72,14 +73,6 @@ typedef struct	s_cylindre
 	double		radius;
 	t_vecteur	color;
 }				t_cylindre;
-typedef struct	s_fcylindre
-{
-	t_vecteur	base;
-	t_vecteur	dir;
-	double		radius;
-	t_vecteur	color;
-	double		size;
-}				t_fcylindre;
 typedef struct	s_cone
 {
 	t_vecteur	apex;
@@ -88,15 +81,6 @@ typedef struct	s_cone
 	t_vecteur	color;
 }				t_cone;
 
-typedef struct	s_fcone
-{
-	t_vecteur	apex;
-	t_vecteur	dir;
-	double		angle;
-	t_vecteur	color;
-	double 		size;
-	double		mid;
-}				t_fcone;
 typedef struct	s_plan
 {
 	t_vecteur	point;
@@ -104,6 +88,27 @@ typedef struct	s_plan
 	t_vecteur	color;
 	double		size;
 }				t_plan;
+typedef struct	s_fcylindre
+{
+	t_vecteur	base;
+	t_vecteur	dir;
+	double		radius;
+	t_vecteur	color;
+	double		size;
+	t_plan    *plan1;
+	t_plan    *plan2;
+}				t_fcylindre;
+typedef struct	s_fcone
+{
+	t_vecteur	apex;
+	t_vecteur	dir;
+	double		angle;
+	t_vecteur	color;
+	double		mid;
+	double		size;
+	t_plan		*plan1;
+	t_plan    *plan2;
+}				t_fcone;
 typedef struct	s_camera
 {
 	t_vecteur	origin;

@@ -25,7 +25,7 @@ t_ray	set_ray(int i, int j, t_camera cam)
 	temp[0] = v_mult(cam.horizontal, u);
 	temp[1] = v_mult(cam.vertical, v);
 	temp[2] = v_add(cam.lowleftcor, temp[0]);
-	ray.dir = v_less(v_add(temp[1], temp[2]), cam.origin);
+	ray.dir = v_normalize(v_less(v_add(temp[1], temp[2]), cam.origin));
 	return (ray);
 }
 
@@ -53,7 +53,7 @@ void	raytracer(t_camera cam, t_scene *scene, t_mlx *mlx)
 			col[3]++;
 			tab[0]++;
 		}
-		//printf("%f\n" , tab[1] );
+		printf("%f\n" , tab[1] );
 		tab[1]--;
 	}
 }
@@ -69,6 +69,7 @@ int		main(int ac, char **av)
 	t_mlx		mlx;
 	t_scene		*scene;
 	t_camera	cam;
+	double pi = M_PI;
 
 	if (ac != 2)
 	{

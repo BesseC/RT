@@ -47,11 +47,11 @@ int fcyl_test(t_ray *ray, t_fcylindre *fcyl, t_record *rec, double t)
 
 int	hit_fcylbord(t_fcylindre *fcyl, t_ray *ray, double *min_max, t_record *rec, int f)
 {
-	t_plan *plan1;
-	t_plan *plan2;
+	//t_plan *plan1;
+	//t_plan *plan2;
 	int t;
 	int p;
-
+/*
 	plan1 = (t_plan *)ft_memalloc(sizeof(t_plan));
 	plan2 = (t_plan *)ft_memalloc(sizeof(t_plan));
 	plan1->point = v_add(fcyl->base, v_mult(fcyl->dir, fcyl->size/2));
@@ -59,23 +59,23 @@ int	hit_fcylbord(t_fcylindre *fcyl, t_ray *ray, double *min_max, t_record *rec, 
 	plan1->vdir = v_set(fcyl->dir.x, fcyl->dir.y, fcyl->dir.z);
 	plan2->vdir = v_set(-fcyl->dir.x, -fcyl->dir.y, -fcyl->dir.z);
 	plan1->size = fcyl->radius;
-	plan2->size = fcyl->radius;
-	if(f == 1 && (t = hit_plan(plan1, ray, min_max, rec)))
+	plan2->size = fcyl->radius;*/
+	if(f == 1 && (t = hit_plan(fcyl->plan1, ray, min_max, rec)))
 	{
 		set_min_max(min_max[0], rec->t, min_max);
-		ft_memdel((void **)&plan1);
-		ft_memdel((void **)&plan2);
+	//	ft_memdel((void **)&plan1);
+		//ft_memdel((void **)&plan2);
 		return (t);
 	}
-	if(f == 2 && (p = hit_plan(plan2, ray, min_max, rec)))
+	if(f == 2 && (p = hit_plan(fcyl->plan2, ray, min_max, rec)))
 	{
 		set_min_max(min_max[0], rec->t, min_max);
-		ft_memdel((void **)&plan1);
-		ft_memdel((void **)&plan2);
+	//	ft_memdel((void **)&plan1);
+	//	ft_memdel((void **)&plan2);
 		return (p);
 	}
-	ft_memdel((void **)&plan1);
-	ft_memdel((void **)&plan2);
+//	ft_memdel((void **)&plan1);
+	//ft_memdel((void **)&plan2);
 	return(0);
 }
 
@@ -119,19 +119,27 @@ int	hit_fcylindre(t_fcylindre *fcyl, t_ray *ray, double *min_max, t_record *rec)
 	return (0);
 }
 
-void	attr_fcylindre(t_fcylindre *fcylindre, char **tab)
+void	attr_fcylindre(t_fcylindre *fcyl, char **tab)
 {
 	tab[3][ft_strlen(tab[3]) - 1] = '\0';
 	tab[7][ft_strlen(tab[7]) - 1] = '\0';
-	fcylindre->base.x = ft_atof(tab[1] + 1);
-	fcylindre->base.y = ft_atof(tab[2]);
-	fcylindre->base.z = ft_atof(tab[3]);
-	fcylindre->radius = ft_atof(tab[4]);
-	fcylindre->dir.x = ft_atof(tab[5] + 1);
-	fcylindre->dir.y = ft_atof(tab[6]);
-	fcylindre->dir.z = ft_atof(tab[7]);
-	fcylindre->dir = v_normalize(fcylindre->dir);
-  fcylindre->size = ft_atof(tab[8]);
+	fcyl->base.x = ft_atof(tab[1] + 1);
+	fcyl->base.y = ft_atof(tab[2]);
+	fcyl->base.z = ft_atof(tab[3]);
+	fcyl->radius = ft_atof(tab[4]);
+	fcyl->dir.x = ft_atof(tab[5] + 1);
+	fcyl->dir.y = ft_atof(tab[6]);
+	fcyl->dir.z = ft_atof(tab[7]);
+	fcyl->dir = v_normalize(fcyl->dir);
+  fcyl->size = ft_atof(tab[8]);
+	fcyl->plan1 = (t_plan *)ft_memalloc(sizeof(t_plan));
+	fcyl->plan2 = (t_plan *)ft_memalloc(sizeof(t_plan));
+	fcyl->plan1->point = v_add(fcyl->base, v_mult(fcyl->dir, fcyl->size/2));
+	fcyl->plan2->point = v_less(fcyl->base, v_mult(fcyl->dir, fcyl->size/2));
+	fcyl->plan1->vdir = v_set(fcyl->dir.x, fcyl->dir.y, fcyl->dir.z);
+	fcyl->plan2->vdir = v_set(-fcyl->dir.x, -fcyl->dir.y, -fcyl->dir.z);
+	fcyl->plan1->size = fcyl->radius;
+	fcyl->plan2->size = fcyl->radius;
 }
 
 int		set_fcylindre(t_scene *scene, char **tab)
