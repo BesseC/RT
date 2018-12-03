@@ -1,0 +1,20 @@
+objects (
+	sphere (position (-1 0 0)) (radius (1)) (color (0.5 1 0.5))
+	sphere (position (1 0 0)) (radius (1)) (color (0.5 0.5 1))
+	sphere (position (0 0 1)) (radius (1)) (color (1 0.5 0.5))
+	plane (position (0 -2 0) axis (0 1 0) color (1 1 1) reflection (1))
+	plane (position (0 2 0) axis (0 1 0) color (1 1 1) reflection (1))
+	plane (position (4 0 0) axis (1 0 0) color (1 1 1) reflection (1))
+	plane (position (-4 0 0) axis (1 0 0) color (1 1 1) reflection (1))
+	plane (position (0 0 -4) axis (0 0 1) color (1 1 1) reflection (1))
+	plane (position (0 0 20) axis (0 0 1) color (1 1 1) reflection (1))
+	light (position (0 1 2))
+	light (position (0 1 -2))
+	light (position (0 -1 2))
+	light (position (0 -1 -2))
+)
+
+global (
+	window (size (1500 1500))
+	camera (from (0 0 20) to (0 0 -1))
+)

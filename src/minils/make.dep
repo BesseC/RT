@@ -1,0 +1,2 @@
+SRC_MINI_LS=mini_ls.c
+INCLUDE+= $(shell pwd)/src/minils/

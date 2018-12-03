@@ -1,0 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/22 13:52:23 by scornaz           #+#    #+#             */
+/*   Updated: 2018/01/22 14:34:51 by scornaz          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "array.h"
+#include <stdio.h>
+
+int			main(void)
+{
+	/* char		add[3] = "oi "; */
+	/* char		add2[3] = "qi "; */
+	/* t_array 	*array = array_new(sizeof(char), 8192); */
+	/* t_array 	*array_i = array_new(sizeof(int), 64); */
+	/* int		i = 50000; */
+	
+	/* while (i--) */
+	/* { */
+	/* 	array_add(array, add, 3); */
+	/* 	array_add(array, add2, 3); */
+	/* } */
+	/* array_add(array, "sdfas\0", 6); */
+	/* ft_putstr(array->mem); */
+	/* array_add(array_i, &((int[6]){0,1,5,4,1,2}), 6 * sizeof(int)); */
+	/* array_add(array_i, &((int[6]){0,1,5,4,1,-1}), 6 * sizeof(int)); */
+	/* ft_print_len(array_i->cursor, array_i->mem); */
+	/* array_free(array_i); */
+	/* array_free(array); */
+  char *ret = get_file_content("lorem");
+  printf("%s", ret);
+  free(ret);
+}

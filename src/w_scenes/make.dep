@@ -1,0 +1,4 @@
+SRC_WSCN = new_scene.c w_obj.c w_default.c w_newobj.c
+INCLUDE+= $(shell pwd)/src/w_scenes/
+SRCS+= $(SRC_WSCN)
+ALLC+= $(addprefix $(shell pwd)/src/w_scenes/, $(SRC_WSCN))

@@ -1,0 +1,1 @@
+FILES += $(addprefix numbers/, ft_max.c ft_itoa.c ft_fact.c ft_atoi.c ft_abs.c ft_all_perms.c)

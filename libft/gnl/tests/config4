@@ -1,0 +1,26 @@
+objects (
+	sphere (position (5 0 -25)) (color (0.65 0.77 0.97)) (radius (3)) (reflection (1))
+	sphere (position (0 -10004 -20)) (color (1 1 1)) (radius (10000))
+	sphere (position (-5.5 0 -15)) (color (0.9 0.9 0.9)) (radius (3)) (reflection (1))
+	sphere (position (-5 5 -20)) (color (1 0.32 0.36)) (radius (4)) (reflection (1)) (transparency (0.5))
+	light (position (0 0 50)) (color (3 3 3))
+)
+# objects (
+# 	sphere (position (-5 5 -20)) (color (1 0.32 0.36)) (radius (4)) (reflection (1)) (transparency (0.5))
+# 	light (position (0 0 -50)) (color (3 3 3))
+#   plane (position (0 0 -30)) (color (0.2 0.1 0.5)) (axis (0 0.5 -0.5))
+# )
+objects (
+	sphere (position (5 0 -25)) (color (0.65 0.77 0.97)) (radius (3)) (reflection (1))
+	sphere (position (0 -10004 -20)) (color (1 1 1)) (radius (10000))
+	sphere (position (-5.5 0 -15)) (color (0.9 0.9 0.9)) (radius (3)) (reflection (1))
+	sphere (position (-5 5 -20)) (color (1 0.32 0.36)) (radius (4)) (reflection (1)) (transparency (0.5))
+	sphere (position (5 -1 -15)) (color (0.9 0.76 0.46)) (radius (2)) (reflection (1)) (transparency (0.5))
+  cone (position (0 0 -10)) (axis (0.41 0.72 -0.7)) (angle (0.9)) (color (0 0 1))
+	light (position (0 0 50)) (color (3 3 3))
+	light (position (0 0 -50)) (color (3 3 3))
+)
+global (
+        window (size (700 400))
+        camera (from (0 0 0) to (0 0 -1))
+)

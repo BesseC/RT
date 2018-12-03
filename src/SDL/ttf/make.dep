@@ -1,0 +1,4 @@
+SRC_TTF=ttf.c
+INCLUDE+= $(shell pwd)/src/SDL/ttf
+SRCS+= $(SRC_TTF) 
+ALLC+= $(addprefix $(shell pwd)/src/SDL/ttf/, $(SRC_TTF)) 

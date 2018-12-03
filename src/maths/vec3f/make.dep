@@ -1,0 +1,2 @@
+VEC3F_SRCS = creation.c operations.c geometrie.c matrix.c
+VEC3F_ABS_SRCS = $(addprefix $(ROOT)src/maths/vec3f/, $(VEC3F_SRCS))

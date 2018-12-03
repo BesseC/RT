@@ -1,0 +1,6 @@
+LIBFT_PATH=../../libft
+LIBFT_MODULES = $(addprefix $(LIBFT_PATH)/, .  string printf/includes array mem )
+BRACKETS_INCLUDE += $(addprefix -I, . $(LIBFT_MODULES) ../objects ../maths/vec3f ../maths)
+BRACKETS_SRCS = parser.c configure.c lexer.c  parse_utils.c check.c conf_utils.c
+BRACKETS_SRCS_T = data.c globals.c errors.c
+LOCAL_INCLUDES=$(addprefix srcs/, $(BRACKETS_SRCS)) $(addprefix srcs/types/, $(BRACKETS_SRCS_T))

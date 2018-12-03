@@ -1,0 +1,1 @@
+FILES+=$(addprefix printf/, change_types.c ft_printf.c ft_sprintf.c itoas.c parse.c parser.c print.c strings.c utils_printf.c)

@@ -1,0 +1,1 @@
+FILES += $(addprefix maths/, ft_pow.c)

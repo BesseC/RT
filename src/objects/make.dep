@@ -1,0 +1,1 @@
+OBJECTS_SRCS += object.c sphere.c cone.c cylinder.c plane.c object_set.c object_texture.c  cyl_fini.c cone2_fini.c

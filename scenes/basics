@@ -1,0 +1,53 @@
+objects(
+		cylinder (position (0 0 -3)) (axis (0 1 0)) (radius (0.5)) (color (0 0 1))
+		fcylinder (position (0.6 0 -3)) (axis (0 1 0)) (height(1)) (radius (0.6)) (color (1 0 0))
+		light (position (5 0 0)) (color (2 2 2))
+)
+
+objects (
+        sphere (position (0 0 -10)) (radius (1)) (color (1 0 1))
+        light (position (20 40 20))
+        light (position (-20 40 20))
+        light (position (20 40 -20))
+        light (position (-20 40 -20))
+)
+
+objects (
+	cylinder (position (0 0 -10)) (axis (1 2 1))
+	     (radius (2))  (color (1 0 0))
+  cone(position (-15 3 -20)) (axis(1 2 1)) (angle (1.2)) (color (0.2 0.1 0.4))
+	sphere (position (-10 2 -25))
+	     (radius (2))  (color (1 0 0))
+	light (position (-20 5 -20)) (color (1.5 1.5 1.5)) (radius (3))
+)
+
+objects (
+	cone (position (0 0 -10)) (axis (1 0 0))
+	     (angle (0.8))  (color (0.1 0.32 0.36))
+	cone (position (-5 0 -12)) (axis (0 1 0))
+	     (angle (0.8))   (color (0 1 0))
+	light (position (0 0 300)) (color (1.5 3.5 1.5))
+)
+
+objects (
+	sphere	(position (5 0 -25)) (color (0.65 0.77 0.97))
+		(radius (3)) (reflection (1))
+	plane	(position (3 1 -20)) (axis (-2 -0.4 -1)) (color (0.2 0.1 0.5))
+	sphere	(position (-5.5 0 -15)) (color (0.9 0.9 0.9))
+		(radius (3)) (reflection (0))
+	sphere	(position (0 0 -20)) (color (1 0.32 0.36))
+		(radius (4)) (reflection (1)) (transparency (0.5))
+	sphere	(position (5 -1 -15)) (color (1 0 0))
+		(radius (2)) (reflection (0)) (transparency (0.5))
+	light	(position (0 20 -30)) (color (3 3 3)) (radius (1))
+	light	(position (0 0 30)) (color (3 3 3)) (radius (1))
+)
+
+objects (
+	plane (position (0 0 -40)) (axis (0 0 1)) (color (0 0 0))
+	plane (position (0 0 -50)) (axis (-1 0 -1)) (color (0 1 0))
+	plane (position (0 0 -50)) (axis (1 0 -1)) (color (1 1 1))
+	plane (position (0 0 -50)) (axis (0 1 -1)) (color (1 0 0))
+	plane (position (0 0 -50)) (axis (0 -1 -1)) (color (0 0 1))
+	light (position (0 0 5)) (color (5 5 5)) (radius (1))
+)

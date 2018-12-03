@@ -1,0 +1,3 @@
+MATHS_SRCS = resolve_quadratics.c 
+MATHS_INCLUDES = resolve_quadratics.h
+MATHS_ABS_SRCS = $(addprefix $(ROOT)/src/maths/, $(MATHS_SRCS))

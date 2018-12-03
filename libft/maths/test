@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo -e "\n\n SQRT \n\n"
+
+tests="4 85 687534657 1075"
+for i in $tests
+do
+    echo "--------"
+    echo pour $i
+    a=`./sqrt $i`
+    echo on a $a
+    echo car `echo $a \* $a | bc`
+done
+
+echo -e "\n\n PPPPPPPPPPPPPPPOOOOOW \n\n"
+
+./pow

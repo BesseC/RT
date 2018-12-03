@@ -1,0 +1,29 @@
+#!/bin/sh
+
+assets=(`ls assets/planets | grep .jpg`)
+random(){
+	jot -r 1 1 $1
+}
+create_planet(){
+	asset=${assets[$RANDOM % ${#assets[@]} ]}
+	position=`jot -r 3 -150 150`
+	echo "sphere (texture(assets/planets/$asset)) (position ($position)) (radius (`random 50`))"
+}
+create_light(){
+	position=`jot -r 3 -150 150`
+	echo "light (position ($position)) (color(1 1 1))"
+}
+
+echo "objects ("
+for i in `seq $1`; do
+	echo `create_planet`
+done
+for i in `seq $2`; do
+	echo `create_light`
+done
+echo "	 )
+	 global(
+	 	window (size (1200 1200))
+		camera (from (0 0 100)) (to (0 0 -1))
+	)
+"

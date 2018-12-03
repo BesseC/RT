@@ -1,0 +1,9 @@
+objects (
+	sphere (texture(pattern1)) (position (0 0 -1)) (radius (0.5)) (color (1 0 0))
+	sphere (texture(pattern2)) (position (-1 0 -1)) (radius (0.5)) (color (1 0 0))
+	sphere (texture(pattern3)) (position (1 0 -1)) (radius (0.5)) (color (1 0 0))
+	cylinder (texture(pattern1)) (position (0 1 -2)) (axis (0 1 0)) (radius (0.5)) (color (0 1 0))
+	cone (texture(pattern1)) (position (1 1 -2)) (axis (0 1 0)) (angle (170)) (color (0 1 0))
+	light (position (0 20 20))
+	light (position (0 0 20))
+	)

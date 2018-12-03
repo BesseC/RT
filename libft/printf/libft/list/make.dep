@@ -1,0 +1,5 @@
+HERE := list
+FFILES := main.c cmp_functions.c utils_list.c ft_lstgetmax.c
+
+FILES += $(addprefix $(HERE)/, $(FFILES))
+INCLUDES += $(HERE)

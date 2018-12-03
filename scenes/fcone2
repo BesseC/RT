@@ -1,0 +1,11 @@
+objects(
+			plane (position (0 -10 0)) (axis (0 1 0)) (color (1 1 1))
+			fcylinder (position (0 0.75 0)) (axis (0 1 0)) (height(1.5)) (radius (0.5)) (color (1 0.5 0)) (transparency (0.9)) (reflection (1))
+			light (position (45 20 21)) (color (2 2 2))
+			fcone (position (0 1 0)) (axis (0 -1 0)) (height (2)) (mid (0.5)) (angle (30)) (color (1 1 0))
+			fcone (position (1 2 0)) (axis (0 -1 0)) (height (2)) (mid (1)) (angle (30)) (color (1 1 0))
+)
+global (
+		window (size (1000 1000))
+		camera (from (0 2 3) to (0 -2 -3))
+)

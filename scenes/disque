@@ -1,0 +1,8 @@
+objects (
+	disque (position (0 0 -4)) (axis (0 0 1)) (size (0.1)) (color (0 1 0))
+#	plane (position (0 0 -4)) (axis (0 0 1)) (color (0 1 0))
+	light (position (0 0 5)) (color (5 5 5)) (radius (1))
+)
+global (
+        window (size (640 480))
+)

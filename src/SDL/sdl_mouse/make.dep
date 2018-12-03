@@ -1,0 +1,1 @@
+SDL_MOUSE_SRCS= texture.c texture2.c button.c media_loader.c

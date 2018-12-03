@@ -1,0 +1,14 @@
+objects (
+       sphere (position (fff) color (fff) radius (f) transparency (f) reflection (f) ior (f) texture (s))
+       plane (texture (s) position (fff) color (fff) axis (fff) transparency (f) ior (f) reflection (f))
+       disque (texture (s) position (fff) color (fff) axis (fff) size (f) transparency (f) ior (f) reflection (f))
+       cone (texture (s) position (fff) color (fff) angle (f) axis (fff) transparency (f) ior (f) reflection (f)) 
+       cylinder (texture(s) position (fff) color (fff) axis (fff) radius (f) transparency (f) ior (f) reflection (f)) 
+       fcylinder (texture (s) position (fff) color (fff) axis (fff) height (f) radius (f) transparency (f) ior (f) reflection (f)) 
+       fcone (texture (s) position (fff) color (fff) axis (fff) height (f) mid (f) angle (f) transparency (f) ior (f) reflection (f)) 
+       light (position (fff) color (fff) radius (f))
+)
+global (
+       window (size (ii))
+       camera (from (fff) to (fff))
+)

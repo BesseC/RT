@@ -1,0 +1,127 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scornaz <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/01/27 11:50:04 by scornaz           #+#    #+#             */
+/*   Updated: 2018/05/09 18:00:37 by scornaz          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../libft/libft.h"
+
+#include <stdio.h>
+
+float		ft_pow(int base, int exp)
+{
+	float	ret;
+
+	if (exp < 0)
+		return (1 / ft_pow(base, -exp));
+	ret = 1;
+	while (exp-- > 0)
+		ret *= base;
+	return (ret);
+}
+
+void	sputnbr(long long cast, char **s)
+{
+	if (cast > 9)
+		sputnbr(cast / 10, s);
+ 	**s = ('0' + cast % 10);
+	++(*s);
+	if (cast < 10)
+		(*s)[1] = 0;
+}
+
+char	*print_float(double f, int precision)
+{
+	int 	int_part;
+	int		zeros;
+	char	*str;
+	char	*cpy;
+
+	str = malloc(precision > 32 ? precision : 32);
+	cpy = str;
+	int_part = f;
+	sputnbr(int_part, &str);
+	if (precision)
+	{
+		zeros = precision - 15;
+		*str++ = '.';
+		sputnbr((f - int_part)
+			* ft_pow(10, precision < 15 ? precision : 15), &str);
+		while (zeros > 0)
+		{
+			*str++ = '0';
+			--zeros;
+		}
+		*str = 0;
+	}
+	return (cpy);
+}
+
+void io(double q, int b)
+{
+	printf("io %s et %.*f\n", print_float(q, b), b, q);
+}
+
+void	dec_float(float f)
+{
+	int c = *(int*)&f;
+	int sign = 1;
+	int exp = 0;
+	float mantisse = 1;
+
+	int a = 31; int b = 23;
+	for (int i = a; i >= 0; i--)
+	{
+		if (i == a && (c & 1<<i) != 0)
+			sign = -1;
+		else if (i < a && i >= b && ((c & 1<<i) != 0))
+			exp += 1 << (i - b);
+		else if (i < b && (c & 1<<i) != 0)
+			mantisse += ft_pow(2, i - b);
+//		printf("%d",  (c & 1<<i) != 0);
+	}
+	printf("sign exp mantisse %d %d %f\n", sign, exp, mantisse);
+	printf("\n%f", sign * ft_pow(2, exp - 127) * mantisse);
+	printf("\n%s", print_float(sign * ft_pow(2, exp - 127) * mantisse, 6));
+}
+
+#define DOUBLE_EXP 52
+#define DOUBLE_SIGN 63
+
+void	dec_double(double f)
+{
+	long c = *(long*)&f;
+	long shift = 1;
+	int sign = 1;
+	int exp = 0;
+	double mantisse = 1;
+
+	int a = 63; int b = 52;
+	for (int i = a; i >= 0; i--)
+	{
+		if (i == a && (c & shift << i) != 0)
+			sign = -1;
+		else if (i < a && i >= b && ((c & shift << i) != 0))
+			exp += shift << (i - b);
+		else if (i < b && (c & shift << i) != 0)
+			mantisse += ft_pow(2, i - b);
+		printf("%d",  (c & shift << i) != 0);
+	}
+	printf("\nsign exp mantisse %d %d %f\n", sign, exp, mantisse);
+	printf("\n%f\n", sign * ft_pow(2, exp - 1023) * mantisse);
+	/* printf("%c%fp%d\n", (sign == -1) ? '-': 0, mantisse, exp - 1023); */
+	/* printf("\n%s", print_float(sign * ft_pow(2, exp - 1023) * mantisse, 6)); */
+}
+
+int	main(void)
+{
+	double q = 35565264.4546454;
+//	dec_double(98.89231);
+	print_float(q, 6);
+}
